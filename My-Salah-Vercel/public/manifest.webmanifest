@@ -1,0 +1,13 @@
+{
+  "name": "My Salah",
+  "short_name": "My Salah",
+  "description": "Namoz, Qur'on, hadis, arab tili va kundalik reja yordamchisi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fb",
+  "theme_color": "#09253f",
+  "lang": "uz",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

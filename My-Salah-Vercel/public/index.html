@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#09253f" />
+  <meta name="description" content="My Salah — namoz, Qur'on, hadis va kunlik intizom yordamchisi" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>My Salah</title>
+</head>
+<body>
+  <div id="toast" class="toast" role="status"></div>
+  <aside class="sidebar">
+    <a class="brand" href="#home"><span class="brand-mark">☾</span><span>My Salah</span></a>
+    <nav id="nav" aria-label="Asosiy menyu">
+      <button class="nav-item active" data-view="home"><span>⌂</span> Bugun</button>
+      <button class="nav-item" data-view="salah"><span>◷</span> Namoz</button>
+      <button class="nav-item" data-view="quran"><span>۞</span> Qur’on</button>
+      <button class="nav-item" data-view="hadith"><span>❝</span> Hadislar</button>
+      <button class="nav-item" data-view="notes"><span>✓</span> Eslatmalar</button>
+      <button class="nav-item" data-view="news"><span>◉</span> Viza yangiliklari <b id="newsBadge" class="badge">0</b></button>
+      <button class="nav-item" data-view="arabic"><span>ع</span> Arab tili</button>
+      <button class="nav-item" data-view="dhikr"><span>∞</span> Zikr</button>
+      <button class="nav-item" data-view="report"><span>▥</span> Hisobot</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="notifyBtn" class="notify-btn">🔔 Bildirishnomalarni yoqish</button>
+      <small>Ma’lumotlar shu qurilmada saqlanadi</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn menu-btn" aria-label="Menyu">☰</button>
+      <div><p id="hijriDate" class="eyebrow">—</p><h1 id="viewTitle">Assalomu alaykum</h1></div>
+      <div class="top-actions"><span id="clock">00:00</span><button id="profileBtn" class="avatar">M</button></div>
+    </header>
+
+    <section id="home" class="view active">
+      <div class="hero-grid">
+        <article class="next-prayer-card">
+          <div class="card-top"><span class="pill">KEYINGI NAMOZ</span><span id="location">Toshkent</span></div>
+          <h2 id="nextPrayerName">—</h2><div id="nextPrayerTime" class="big-time">--:--</div>
+          <p id="countdown">Vaqt aniqlanmoqda…</p>
+          <div id="heroPrayerDots" class="prayer-dots"></div>
+        </article>
+        <article class="daily-progress card">
+          <div class="section-head"><div><span class="kicker">KUNLIK NATIJA</span><h3>Namoz intizomi</h3></div><strong id="todayScore">0/5</strong></div>
+          <div class="ring-wrap"><div id="progressRing" class="progress-ring"><span id="progressPercent">0%</span></div></div>
+          <p id="encouragement">Har bir namoz — qalb uchun yangi boshlanish.</p>
+          <button class="text-btn" data-go="salah">Batafsil ko‘rish →</button>
+        </article>
+      </div>
+      <article id="adaptiveVerse" class="verse-card"></article>
+      <div class="mini-grid">
+        <article class="mini-card" data-go="hadith"><span class="mini-icon">❝</span><div><small>Bugungi hadislar</small><h3>5 ta yangi hadis</h3></div><b>→</b></article>
+        <article class="mini-card" data-go="arabic"><span class="mini-icon">ع</span><div><small>15 daqiqalik dars</small><h3 id="arabicMini">Bugungi arab tili</h3></div><b>→</b></article>
+        <article class="mini-card" data-go="notes"><span class="mini-icon">✓</span><div><small>Muhim ishlar</small><h3 id="noteMini">Eslatmalar yo‘q</h3></div><b>→</b></article>
+      </div>
+    </section>
+
+    <section id="salah" class="view">
+      <div class="section-head page-head"><div><span class="kicker">TOSHKENT VAQTI</span><h2>Bugungi namozlar</h2></div><span id="gregorianDate" class="date-chip"></span></div>
+      <div id="prayerTable" class="prayer-table"></div>
+      <div class="two-col">
+        <article class="card"><div class="section-head"><div><span class="kicker">OYLIK</span><h3>Qazo namozlari</h3></div><strong id="qazaTotal">0</strong></div><div id="qazaChart" class="bar-chart"></div><p class="muted">O‘qilmagan deb belgilangan namozlar avtomatik hisoblanadi.</p></article>
+        <article class="card"><span class="kicker">QAZO QO‘SHISH</span><h3>Oldingi qazo hisobini kiriting</h3><div id="qazaInputs" class="qaza-inputs"></div><button id="saveQaza" class="primary-btn">Saqlash</button></article>
+      </div>
+    </section>
+
+    <section id="quran" class="view">
+      <div class="page-head"><span class="kicker">KUNLIK QUR’ON</span><h2>Qalb uchun oyatlar</h2><p>Mag‘firat, ota-ona roziligi, Allohning roziligi, halol rizq va baraka.</p></div>
+      <div id="quranCards" class="stack"></div>
+    </section>
+
+    <section id="hadith" class="view">
+      <div class="page-head"><span class="kicker">HAR NAMOZDA YANGILANADI</span><h2>Bugungi 5 hadis</h2><p>Ishonchli to‘plamlardan qisqa yodlash kartochkalari.</p></div>
+      <div id="hadithCards" class="hadith-grid"></div>
+    </section>
+
+    <section id="notes" class="view">
+      <div class="page-head"><span class="kicker">ISH VA HAYOT</span><h2>Muhim eslatmalar</h2></div>
+      <form id="noteForm" class="note-form card">
+        <input id="noteText" required maxlength="180" placeholder="Masalan: Olga uchun slot hujjatlarini tekshirish" />
+        <input id="noteWhen" required type="datetime-local" />
+        <select id="notePriority"><option value="high">Muhim</option><option value="normal">Oddiy</option><option value="low">Keyinroq</option></select>
+        <button class="primary-btn" type="submit">Eslatma qo‘shish</button>
+      </form>
+      <div id="notesList" class="notes-list"></div>
+    </section>
+
+    <section id="news" class="view">
+      <div class="page-head"><span class="kicker">VIZA DUNYOSI</span><h2>Sayyohlar uchun yangiliklar</h2><p>Kartani yon tomonga suring yoki “O‘qildi”ni bosing. Rasmiy manbaga o‘tib tekshiring.</p></div>
+      <div class="filter-row"><button class="filter active" data-news-filter="unread">O‘qilmagan</button><button class="filter" data-news-filter="all">Hammasi</button><button id="refreshNews" class="filter">↻ Yangilash</button></div>
+      <div id="newsStack" class="news-stack"></div>
+    </section>
+
+    <section id="arabic" class="view">
+      <div class="page-head"><span class="kicker">15 DAQIQA • BOMDODDAN 1 SOAT KEYIN</span><h2>Bugungi arab tili</h2></div>
+      <div id="arabicLesson" class="lesson-card"></div>
+    </section>
+
+    <section id="dhikr" class="view">
+      <div class="page-head"><span class="kicker">QALB XOTIRJAMLIGI</span><h2>Zikr hisoblagichi</h2></div>
+      <article class="tasbih-card"><p id="dhikrPhrase" class="arabic">سُبْحَانَ ٱللَّٰهِ</p><div id="tasbihCount" class="tasbih-count">0</div><button id="tasbihTap" class="tasbih-btn">Bosing</button><div class="tasbih-actions"><button data-target="33">33</button><button data-target="100">100</button><button id="resetTasbih">Qayta</button></div></article>
+    </section>
+
+    <section id="report" class="view">
+      <div class="page-head"><span class="kicker">OXIRGI 30 KUN</span><h2>Shaxsiy hisobot</h2></div>
+      <div id="reportStats" class="stat-grid"></div>
+      <article class="card"><h3>Haftalik namoz barqarorligi</h3><div id="weeklyChart" class="weekly-chart"></div></article>
+      <article class="card reflection"><h3>Bugungi niyat</h3><textarea id="reflectionText" placeholder="Bugun nimani yaxshilamoqchisiz?"></textarea><button id="saveReflection" class="primary-btn">Saqlash</button></article>
+    </section>
+  </main>
+
+  <nav class="mobile-nav">
+    <button data-view="home" class="active">⌂<small>Bugun</small></button><button data-view="salah">◷<small>Namoz</small></button><button data-view="quran">۞<small>Qur’on</small></button><button data-view="notes">✓<small>Ishlar</small></button><button data-view="report">▥<small>Hisobot</small></button>
+  </nav>
+
+  <dialog id="profileDialog"><form method="dialog" class="dialog-card"><button class="dialog-close">×</button><span class="kicker">FOYDALANUVCHI</span><h2>Ismingiz</h2><input id="profileName" maxlength="30" placeholder="Murod" /><p class="muted">Bir qurilmada 10 tagacha profilni alohida yuritish mumkin.</p><button id="saveProfile" class="primary-btn" value="save">Saqlash</button></form></dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
